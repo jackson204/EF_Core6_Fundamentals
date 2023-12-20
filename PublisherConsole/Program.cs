@@ -3,3 +3,7 @@ using PublisherData;
 
 Console.WriteLine("Hello, World!");
 
+using (var context = new PubContext())
+{
+    context.Database.EnsureCreated();
+}

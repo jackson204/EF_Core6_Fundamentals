@@ -5,17 +5,17 @@ using PublisherDomain;
 
 Console.WriteLine("Hello, World!");
 
-using (var context = new PubContext())
-{
-    context.Database.EnsureCreated();
-}
+// using (var context = new PubContext())
+// {
+//     context.Database.EnsureCreated();
+// }
 
-// QueryAuthors();
+QueryAuthors();
 // AddAuthor();
 // QueryAuthors();
 
-AddAuthorWithBook();
-GetAuthorsWithBooks();
+// AddAuthorWithBook();
+// GetAuthorsWithBooks();
 
 void GetAuthorsWithBooks()
 {

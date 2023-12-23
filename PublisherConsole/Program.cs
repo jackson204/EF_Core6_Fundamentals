@@ -21,10 +21,51 @@ var pubContext1 = new PubContext();
 
 // QueryFilters();
 // AddSomeMoreAuthors();
-SkipAndTakeAuthors();
+// SkipAndTakeAuthors();
 
 
+// InsertAuthor();
+// RetrieveAndUpdateAuthor();
+VariousOperations();
 
+void VariousOperations()
+{
+    var author = pubContext1.Authors.Find(2);
+    author.FirstName = "test";
+    var author1 = new Author()
+    {
+        FirstName = "Dan",
+        LastName = "Appleman"
+    };
+    pubContext1.Add(author1);
+    pubContext1.SaveChanges();
+}
+
+void RetrieveAndUpdateAuthor()
+{
+    var author = pubContext1.Authors.FirstOrDefault(a => a.FirstName == "Frnak" && a.LastName == "Lerman");
+    if (author != null)
+    {
+        author.FirstName = "Frnak222";
+        Console.WriteLine($"before save {pubContext1.ChangeTracker.DebugView.ShortView}");
+        
+        pubContext1.ChangeTracker.DetectChanges();
+   
+        Console.WriteLine($"after save {pubContext1.ChangeTracker.DebugView.ShortView}");
+        pubContext1.SaveChanges();
+    }
+}
+
+void InsertAuthor()
+{
+    var entity = new Author()
+    {
+        FirstName = "Frnak2",
+        LastName = "Lerman2",
+    };
+    pubContext1.Authors.Add(entity);
+    pubContext1.SaveChanges();
+}
 
 void SkipAndTakeAuthors()
 {

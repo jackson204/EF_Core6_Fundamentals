@@ -14,9 +14,8 @@ public class PubContext : DbContext
     {
        
         optionsBuilder.UseSqlServer(
-            @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PubDatabase;");
-        
-        optionsBuilder.LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information);
+            @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PubDatabase;")
+            .LogTo(Console.WriteLine);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

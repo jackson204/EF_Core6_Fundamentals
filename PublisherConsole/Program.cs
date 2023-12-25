@@ -15,6 +15,12 @@ var pubContext1 = new PubContext();
 // QueryAuthors();
 // AddAuthor();
 // QueryAuthors();
+GetAuthors();
+
+void GetAuthors()
+{
+    var authors = pubContext1.Authors.ToList();
+}
 
 // AddAuthorWithBook();
 // GetAuthorsWithBooks();
@@ -27,7 +33,7 @@ var pubContext1 = new PubContext();
 // InsertAuthor();
 // RetrieveAndUpdateAuthor();
 // VariousOperations();
-AddBooks();
+// AddBooks();
 
 void AddBooks()
 {

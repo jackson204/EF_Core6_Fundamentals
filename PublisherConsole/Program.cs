@@ -26,7 +26,18 @@ var pubContext1 = new PubContext();
 
 // InsertAuthor();
 // RetrieveAndUpdateAuthor();
-VariousOperations();
+// VariousOperations();
+AddBooks();
+
+void AddBooks()
+{
+    pubContext1.Books.Add(new Book()
+    {
+        Title = "EF Core in Action test",
+        PublishedOn = DateTime.Now
+    });
+    pubContext1.SaveChanges();
+}
 
 void VariousOperations()
 {

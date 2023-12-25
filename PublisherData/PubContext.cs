@@ -34,7 +34,10 @@ public class PubContext : DbContext
             entity.Property(e => e.Title).IsRequired().HasMaxLength(50);
             entity.Property(e => e.PublishedOn).HasColumnType("datetime");
             entity.Property(e => e.BasePrice).HasColumnType("decimal(18,2)");
-            entity.HasOne(d => d.Author).WithMany(p => p.Books).HasForeignKey(d => d.AuthorId);
+            entity.HasOne(d => d.Author)
+                .WithMany(p => p.Books)
+                .HasForeignKey(d => d.AuthorId)
+                .IsRequired(false);
         });
     }
 }

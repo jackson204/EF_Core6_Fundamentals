@@ -12,5 +12,5 @@ public class Book
     
     public virtual Author Author { get; set; }
     
-    public int AuthorId { get; set; }
+    public int? AuthorId { get; set; }
 }

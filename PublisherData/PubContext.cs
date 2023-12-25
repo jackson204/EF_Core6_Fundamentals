@@ -12,10 +12,11 @@ public class PubContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-       
         optionsBuilder.UseSqlServer(
-            @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PubDatabase;")
-            .LogTo(Console.WriteLine);
+                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PubDatabase;")
+            .LogTo(Console.WriteLine,
+                new[] { DbLoggerCategory.Database.Command.Name },
+                LogLevel.Information);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -101,10 +101,10 @@ void QueryFilters()
 void GetAuthorsWithBooks()
 {
     using var pubContext = new PubContext();
-    foreach (var author in pubContext.Authors.Include(a => a.Book))
+    foreach (var author in pubContext.Authors.Include(a => a.Books))
     {
         Console.WriteLine(author.FirstName + " " + author.LastName);
-        foreach (var book in author.Book)
+        foreach (var book in author.Books)
         {
             Console.WriteLine("  " + book.Title);
         }
@@ -137,7 +137,7 @@ void AddAuthorWithBook()
     {
         FirstName = "Julie3",
         LastName = "Lerman3",
-        Book = new List<Book>()
+        Books = new List<Book>()
         {
             new Book()
             {

@@ -10,7 +10,7 @@ public class Book
 
     public decimal BasePrice { get; set; }
     
-    public Author Author { get; set; }
+    public virtual Author Author { get; set; }
     
     public int AuthorId { get; set; }
 }

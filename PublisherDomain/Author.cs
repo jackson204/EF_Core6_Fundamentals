@@ -1,17 +1,19 @@
+using Microsoft.VisualBasic;
+
 namespace PublisherDomain;
 
 public class Author
 {
     public Author()
     {
-        Book = new List<Book>();
+        Books = new HashSet<Book>();
     }
 
-    public int Id { get; set; }
+    public int AuthorId { get; set; }
 
     public string FirstName { get; set; }
 
     public string LastName { get; set; }
 
-    public List<Book> Book { get; set; }
+    public virtual ICollection<Book> Books { get; set; }
 }

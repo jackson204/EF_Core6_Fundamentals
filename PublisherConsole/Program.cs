@@ -15,7 +15,65 @@ var pubContext1 = new PubContext();
 // QueryAuthors();
 // AddAuthor();
 // QueryAuthors();
-GetAuthors();
+// GetAuthors();
+// InsertNewAuthorWithNewBook();
+// InsertNewAuthorWith2NewBook();
+// AddNewBookToExistingAuthorInMemory();
+AddNewBookToExistingAuthorInMemoryViaBook();
+
+void AddNewBookToExistingAuthorInMemoryViaBook()
+{
+    var book = new Book()
+    {
+        Title = "Shift 2 ",
+        PublishedOn = new DateTime(2021, 2, 2),
+        AuthorId = 1
+    };
+    pubContext1.Books.Add(book);
+    pubContext1.SaveChanges();
+}
+
+void AddNewBookToExistingAuthorInMemory()
+{
+    
+    var author = pubContext1.Authors.FirstOrDefault(a => a.LastName=="Rutledge");
+    if (author !=null)
+    {
+        author.Books.Add(new Book()
+        {
+            Title = "Wool 2", PublishedOn = new DateTime(2019,1,1), BasePrice = 19.99m,
+        });
+        pubContext1.Authors.Add(author);
+    }
+    pubContext1.SaveChanges();
+}
+
+void InsertNewAuthorWith2NewBook()
+{
+    var author = new Author() { FirstName = "Don", LastName = "Jones" };
+    author.Books.Add(new Book()
+    {
+        Title = "The Never " , PublishedOn = new DateTime(2019,1,1)
+    });
+    author.Books.Add(new Book()
+    {
+        Title = "The Never 2" , PublishedOn = new DateTime(2019,1,1)
+    });
+    pubContext1.Authors.Add(author);
+    pubContext1.SaveChanges();
+}
+
+void InsertNewAuthorWithNewBook()
+{
+    var author = new Author() { FirstName = "Lynda", LastName = "Rutledge" };
+    author
+        .Books.Add(new Book()
+        {
+            Title = "Faith Bass Darling's Last Garage Sale", PublishedOn = new DateTime(2021, 2, 1)
+        });
+    pubContext1.Authors.Add(author);
+    pubContext1.SaveChanges();
+}
 
 void GetAuthors()
 {
@@ -23,12 +81,12 @@ void GetAuthors()
 }
 
 // AddAuthorWithBook();
+
 // GetAuthorsWithBooks();
 
 // QueryFilters();
 // AddSomeMoreAuthors();
 // SkipAndTakeAuthors();
-
 
 // InsertAuthor();
 // RetrieveAndUpdateAuthor();
@@ -65,9 +123,9 @@ void RetrieveAndUpdateAuthor()
     {
         author.FirstName = "Frnak222";
         Console.WriteLine($"before save {pubContext1.ChangeTracker.DebugView.ShortView}");
-        
+
         pubContext1.ChangeTracker.DetectChanges();
-   
+
         Console.WriteLine($"after save {pubContext1.ChangeTracker.DebugView.ShortView}");
         pubContext1.SaveChanges();
     }
@@ -90,9 +148,8 @@ void SkipAndTakeAuthors()
     for(int i = 0; i < 5; i++)
     {
         Console.WriteLine("Page " + i);
-        pubContext1.Authors.Skip(i*pageSize).Take(pageSize).ToList().ForEach(a =>
+        pubContext1.Authors.Skip(i * pageSize).Take(pageSize).ToList().ForEach(a =>
         {
-            
             Console.WriteLine(a.FirstName + " " + a.LastName);
         });
     }
@@ -100,10 +157,10 @@ void SkipAndTakeAuthors()
 
 void AddSomeMoreAuthors()
 {
-    pubContext1.Authors.Add(new Author(){FirstName = "Rowan", LastName = "Lerman"});
-    pubContext1.Authors.Add(new Author(){FirstName = "Don", LastName = "Jones"});
-    pubContext1.Authors.Add(new Author(){FirstName = "Jim", LastName = "Christopher"});
-    pubContext1.Authors.Add(new Author(){FirstName = "Stepthen", LastName = "Haunts"});
+    pubContext1.Authors.Add(new Author() { FirstName = "Rowan", LastName = "Lerman" });
+    pubContext1.Authors.Add(new Author() { FirstName = "Don", LastName = "Jones" });
+    pubContext1.Authors.Add(new Author() { FirstName = "Jim", LastName = "Christopher" });
+    pubContext1.Authors.Add(new Author() { FirstName = "Stepthen", LastName = "Haunts" });
     pubContext1.SaveChanges();
 }
 

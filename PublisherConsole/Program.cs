@@ -19,7 +19,74 @@ var pubContext1 = new PubContext();
 // InsertNewAuthorWithNewBook();
 // InsertNewAuthorWith2NewBook();
 // AddNewBookToExistingAuthorInMemory();
-AddNewBookToExistingAuthorInMemoryViaBook();
+// AddNewBookToExistingAuthorInMemoryViaBook();
+
+#region 看結果
+
+EagerLoadBooksWithAuthors();
+EagerLoadBooksWithAuthorsAddAsNoTracking();
+
+#endregion
+
+void EagerLoadBooksWithAuthors()
+{
+    var authors = pubContext1.Authors.Include(r => r.Books).ToList();
+    authors.ForEach(r =>
+    {
+        Console.WriteLine($"{r.FirstName} , Count: {r.Books.Count}");
+        foreach (var book in r.Books)
+        {
+            Console.WriteLine($"  {book.Title}");
+        }
+    });
+
+    Console.WriteLine("----");
+
+    var authors1 = pubContext1.Authors
+        .Include(r =>
+            r.Books
+                .Where(book => book.PublishedOn >= new DateTime(2020, 1, 1))
+                .OrderBy(book => book.Title))
+        .ToList();
+    authors1.ForEach(r =>
+    {
+        Console.WriteLine($"{r.FirstName} , Count: {r.Books.Count}");
+        foreach (var book1 in r.Books)
+        {
+            Console.WriteLine($"  {book1.Title}");
+        }
+    });
+}
+
+void EagerLoadBooksWithAuthorsAddAsNoTracking()
+{
+    var authors = pubContext1.Authors.Include(r => r.Books).ToList();
+    authors.ForEach(r =>
+    {
+        Console.WriteLine($"{r.FirstName} , Count: {r.Books.Count}");
+        foreach (var book in r.Books)
+        {
+            Console.WriteLine($"  {book.Title}");
+        }
+    });
+
+    Console.WriteLine("----");
+
+    var authors1 = pubContext1.Authors.AsNoTracking()
+        .Include(r =>
+            r.Books
+                .Where(book => book.PublishedOn >= new DateTime(2020, 1, 1))
+                .OrderBy(book => book.Title))
+        .ToList();
+    authors1.ForEach(r =>
+    {
+        Console.WriteLine($"{r.FirstName} , Count: {r.Books.Count}");
+        foreach (var book1 in r.Books)
+        {
+            Console.WriteLine($"  {book1.Title}");
+        }
+    });
+}
 
 void AddNewBookToExistingAuthorInMemoryViaBook()
 {
@@ -35,13 +102,12 @@ void AddNewBookToExistingAuthorInMemoryViaBook()
 
 void AddNewBookToExistingAuthorInMemory()
 {
-    
-    var author = pubContext1.Authors.FirstOrDefault(a => a.LastName=="Rutledge");
-    if (author !=null)
+    var author = pubContext1.Authors.FirstOrDefault(a => a.LastName == "Rutledge");
+    if (author != null)
     {
         author.Books.Add(new Book()
         {
-            Title = "Wool 2", PublishedOn = new DateTime(2019,1,1), BasePrice = 19.99m,
+            Title = "Wool 2", PublishedOn = new DateTime(2019, 1, 1), BasePrice = 19.99m,
         });
         pubContext1.Authors.Add(author);
     }
@@ -53,11 +119,11 @@ void InsertNewAuthorWith2NewBook()
     var author = new Author() { FirstName = "Don", LastName = "Jones" };
     author.Books.Add(new Book()
     {
-        Title = "The Never " , PublishedOn = new DateTime(2019,1,1)
+        Title = "The Never ", PublishedOn = new DateTime(2019, 1, 1)
     });
     author.Books.Add(new Book()
     {
-        Title = "The Never 2" , PublishedOn = new DateTime(2019,1,1)
+        Title = "The Never 2", PublishedOn = new DateTime(2019, 1, 1)
     });
     pubContext1.Authors.Add(author);
     pubContext1.SaveChanges();

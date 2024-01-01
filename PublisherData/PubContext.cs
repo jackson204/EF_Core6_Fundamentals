@@ -10,6 +10,10 @@ public class PubContext : DbContext
 
     public virtual DbSet<Book> Books { get; set; }
 
+    public virtual DbSet<Cover> Covers { get; set; }
+
+    public virtual DbSet<Artist> Artists { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(

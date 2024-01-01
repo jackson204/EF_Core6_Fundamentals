@@ -20,11 +20,41 @@ var pubContext1 = new PubContext();
 // InsertNewAuthorWith2NewBook();
 // AddNewBookToExistingAuthorInMemory();
 // AddNewBookToExistingAuthorInMemoryViaBook();
+ConnectExistingAeistAndCoverObjects();
+
+void ConnectExistingAeistAndCoverObjects()
+{
+    // var artist = new Artist()
+    // {
+    //     FirstNmae = "test",
+    //     LastName = "test LastName",
+    // };
+    // var artist2 = new Artist()
+    // {
+    //     FirstNmae = "test 2",
+    //     LastName = "test LastName 2",
+    // };
+    // var cover = new Cover()
+    // {
+    //     DesignIdeas = "test DesignIdeas",
+    // };
+    // pubContext1.Artists.Add(artist);
+    // pubContext1.Artists.Add(artist2);
+    // pubContext1.Covers.Add(cover);
+    // pubContext1.SaveChanges();
+
+    var artistA = pubContext1.Artists.Find(1);
+    var artistB = pubContext1.Artists.Find(2);
+    var cover = pubContext1.Covers.Find(1);
+    cover.Artists.Add(artistA);
+    cover.Artists.Add(artistB);
+    pubContext1.SaveChanges();
+}
 
 #region 看結果
 
-EagerLoadBooksWithAuthors();
-EagerLoadBooksWithAuthorsAddAsNoTracking();
+// EagerLoadBooksWithAuthors();
+// EagerLoadBooksWithAuthorsAddAsNoTracking();
 
 #endregion
 

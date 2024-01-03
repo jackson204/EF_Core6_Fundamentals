@@ -20,7 +20,7 @@ var pubContext1 = new PubContext();
 // InsertNewAuthorWith2NewBook();
 // AddNewBookToExistingAuthorInMemory();
 // AddNewBookToExistingAuthorInMemoryViaBook();
-ConnectExistingAeistAndCoverObjects();
+// ConnectExistingAeistAndCoverObjects();
 
 void ConnectExistingAeistAndCoverObjects()
 {
@@ -53,7 +53,7 @@ void ConnectExistingAeistAndCoverObjects()
 
 #region 看結果
 
-// EagerLoadBooksWithAuthors();
+EagerLoadBooksWithAuthors();
 // EagerLoadBooksWithAuthorsAddAsNoTracking();
 
 #endregion
@@ -73,14 +73,16 @@ void EagerLoadBooksWithAuthors()
     Console.WriteLine("----");
 
     var authors1 = pubContext1.Authors
-        .Include(r =>
-            r.Books
-                .Where(book => book.PublishedOn >= new DateTime(2020, 1, 1))
-                .OrderBy(book => book.Title))
+        .Select(author => new
+        {
+            Author = author,
+            Books =  author.Books.Where(r=>r.PublishedOn >= new DateTime(2020, 1, 1)),
+            
+        })
         .ToList();
     authors1.ForEach(r =>
     {
-        Console.WriteLine($"{r.FirstName} , Count: {r.Books.Count}");
+        Console.WriteLine($"{r.Author.FirstName} , Count: {r.Books.Count()}");
         foreach (var book1 in r.Books)
         {
             Console.WriteLine($"  {book1.Title}");

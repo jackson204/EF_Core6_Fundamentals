@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublisherData", "PublisherD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubAPI", "PubAPI\PubAPI.csproj", "{EB5485EF-6804-4369-947C-4190B5382176}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryTests", "InMemoryTests\InMemoryTests.csproj", "{B1F73879-B5BE-4784-A2CF-AAB888C14422}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{EB5485EF-6804-4369-947C-4190B5382176}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB5485EF-6804-4369-947C-4190B5382176}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB5485EF-6804-4369-947C-4190B5382176}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1F73879-B5BE-4784-A2CF-AAB888C14422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1F73879-B5BE-4784-A2CF-AAB888C14422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1F73879-B5BE-4784-A2CF-AAB888C14422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1F73879-B5BE-4784-A2CF-AAB888C14422}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

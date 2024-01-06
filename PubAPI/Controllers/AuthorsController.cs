@@ -24,7 +24,7 @@ namespace PubAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Authors.ToListAsync();
+            return await _context.Authors.Include(r =>r.Books).ToListAsync();
         }
 
         // GET: api/Authors/5

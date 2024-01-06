@@ -18,23 +18,25 @@ namespace PubAPI.Controllers
 
         // GET: api/Authors
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Author>>> GetAuthors()
+        public async Task<ActionResult<IEnumerable<AuthorDTO>>> GetAuthors()
         {
-          if (_context.Authors == null)
-          {
-              return NotFound();
-          }
-            return await _context.Authors.Include(r =>r.Books).ToListAsync();
+            var forEachAsync = await _context.Authors.Select(r => new AuthorDTO()
+            {
+                FirstName = r.FirstName,
+                LastName = r.LastName,
+                AuthorId = r.AuthorId
+            }).ToListAsync();
+            return forEachAsync;
         }
 
         // GET: api/Authors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Author>> GetAuthor(int id)
+        public async Task<ActionResult<AuthorDTO>> GetAuthor(int id)
         {
-          if (_context.Authors == null)
-          {
-              return NotFound();
-          }
+            if (_context.Authors == null)
+            {
+                return NotFound();
+            }
             var author = await _context.Authors.FindAsync(id);
 
             if (author == null)
@@ -42,7 +44,12 @@ namespace PubAPI.Controllers
                 return NotFound();
             }
 
-            return author;
+            return new AuthorDTO
+            {
+                AuthorId = author.AuthorId,
+                FirstName = author.FirstName,
+                LastName = author.LastName
+            };
         }
 
         // PUT: api/Authors/5
@@ -79,16 +86,24 @@ namespace PubAPI.Controllers
         // POST: api/Authors
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Author>> PostAuthor(Author author)
+        public async Task<ActionResult<AuthorDTO>> PostAuthor(AuthorDTO authorDto)
         {
-          if (_context.Authors == null)
-          {
-              return Problem("Entity set 'PubContext.Authors'  is null.");
-          }
+            if (_context.Authors == null)
+            {
+                return Problem("Entity set 'PubContext.Authors'  is null.");
+            }
+
+            var author = new Author()
+            {
+                FirstName = authorDto.FirstName,
+                LastName = authorDto.LastName,
+                AuthorId = authorDto.AuthorId
+            };
+
             _context.Authors.Add(author);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAuthor", new { id = author.AuthorId }, author);
+            return CreatedAtAction("GetAuthor", new { id = authorDto.AuthorId }, authorDto);
         }
 
         // DELETE: api/Authors/5
